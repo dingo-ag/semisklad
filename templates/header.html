@@ -1,0 +1,72 @@
+{% load static %}
+<nav class="navbar navbar-default navbar-fixed-top navbar-left navbar-collapse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {#            <a class="navbar-left"><img src="{% static "images/SOM.png" %}" height="40"></a>#}
+            <span><img src="{% static "images/SOM.png" %}"></span>
+            <a class="navbar-brand navbar-right" href="{% url 'startpage' %}">SemiStorage</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Компоненты <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Пасивные компоненты</a></li>
+                        <li><a href={% url 'components:active_components' %}>Активные компоненты</a></li>
+                        <li><a href="#">Электротехнические изделия</a></li>
+                        <li role="separator" class="divider"></li>
+                        {#                <li class="dropdown-header">Действия</li>#}
+                        <li><a href="#">Приход</a></li>
+                        <li><a href="#">Расход</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href={% url "components:new_component" %}>Создать компонент</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Платы <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Заготовки</a></li>
+                        <li><a href="#">Наличие</a></li>
+                        <li><a href="#">В производстве</a></li>
+                        <li role="separator" class="divider"></li>
+                        {#                <li class="dropdown-header">Действия</li>#}
+                        <li><a href="#">Приход</a></li>
+                        <li><a href="#">Расход</a></li>
+                        <li><a href="#">Запуск в производство</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Устройства<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">В производстве</a></li>
+                        <li><a href="#">Склад</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Запуск в производство</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">История</a></li>
+                <li><a href="{% url 'suppliers-list' %}">Поставщики</a></li>
+                <li><a href="{% url 'search' %}">Поиск</a>
+{#                    <form class="navbar-form navbar-right">#}
+{#                        <input type="text" class="form-control" placeholder="Поиск...">#}
+{#                    </form>#}
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>

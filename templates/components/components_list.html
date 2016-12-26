@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Case</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        {% for component in components %}
+            <tr>
+                <td><img src="{% static component.case.image %}"></td>
+                {#            <td>{{component.case.image }}</td>#}
+                <td>{{ forloop.counter }}</td>
+                <td>{{ component.name }}</td>
+                <td>{{ component.case }}</td>
+                <td>{{ component.short_characteristic }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}

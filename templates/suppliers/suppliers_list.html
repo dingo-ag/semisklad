@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Site</th>
+        </tr>
+        </thead>
+        {% for supplier in suppliers %}
+        <tr>
+            <td>{{ supplier.id }}</td>
+            <td><a href="{% url 'supplier-detail' supplier.id %}">{{ supplier.name }}</a></td>
+            <td>{{ supplier.phone }}</td>
+            <td>{{ supplier.email }}</td>
+            <td><a href="{{ supplier.site }}">{{ supplier.site }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

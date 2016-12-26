@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ supplier.name }}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{ supplier.phone }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ supplier.email }}</td>
+        </tr>
+            <td>Address</td>
+            <td>{{ supplier.postcode }}, {{ supplier.address }}</td>
+        </tr>
+        <tr>
+            <td>Site</td>
+            <td><a href={{ supplier.site }}>{{ supplier.site }}</a></td>
+        </tr>
+    </table>
+    {% if contacts %}
+        <hr>
+        {% for contact in contacts %}
+            <table>
+                <tr>
+                    <td>{{ contact.name }} {{ contact.surname }}</td>
+                    <td>{{ contact.phone }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
