@@ -10,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# For the local launch of the project, insert SECRET_KEY from http://www.miniwebtool.com/django-secret-key-generator/
 SECRET_KEY = secretkey(os.path.join(BASE_DIR, KEY_PATH))
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -30,7 +31,8 @@ INSTALLED_APPS = [
     'apps.components',
     'apps.suppliers',
     'apps.storage',
-    'apps.workers'
+    'apps.workers',
+    'apps.common'
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = 'workers.Worker'
 LOGIN_URL = '/workers/login/'
+LOGIN_REDIRECT_URL = '/'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

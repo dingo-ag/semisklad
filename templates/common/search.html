@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url "search" %}" method="get">
+        <input type="text" name="q" title="Введите данные для поиска..." style="width: 90%">
+        <input type="submit" value="Search">
+    </form>
+    {% if components %}
+        <span>Results for searching task: "{{ question }}"</span>
+        <table>
+            <thead>
+            <tr>
+                <td style="width: 100px">ID</td>
+                <td>NAME</td>
+                <td>CASE</td>
+            </tr>
+            </thead>
+            {% for component in components %}
+                <tr>
+                    <td>{{ component.id }}</td>
+                    <td>{{ component.name }}</td>
+                    <td>{{ component.case }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% if not first_run %}
+            <span>No results for searching task: "{{ question }}"</span>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

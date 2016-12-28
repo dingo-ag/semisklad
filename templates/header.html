@@ -11,7 +11,7 @@
             </button>
             {#            <a class="navbar-left"><img src="{% static "images/SOM.png" %}" height="40"></a>#}
             <span><img src="{% static "images/SOM.png" %}"></span>
-            <a class="navbar-brand navbar-right" href="{% url 'startpage' %}">SemiStorage</a>
+            <a class="navbar-brand navbar-right" href="{% url 'index' %}">SemiStorage</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -55,7 +55,6 @@
                         <li><a href="#">Запуск в производство</a></li>
                     </ul>
                 </li>
-                <li><a href="#">История</a></li>
                 <li><a href="{% url 'suppliers-list' %}">Поставщики</a></li>
                 <li><a href="{% url 'search' %}">Поиск</a>
 {#                    <form class="navbar-form navbar-right">#}
@@ -64,6 +63,8 @@
                 </li>
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
 

@@ -14,6 +14,7 @@
             <td>Email</td>
             <td>{{ supplier.email }}</td>
         </tr>
+        <tr>
             <td>Address</td>
             <td>{{ supplier.postcode }}, {{ supplier.address }}</td>
         </tr>
@@ -25,12 +26,13 @@
     {% if contacts %}
         <hr>
         {% for contact in contacts %}
-            <table>
-                <tr>
-                    <td>{{ contact.name }} {{ contact.surname }}</td>
-                    <td>{{ contact.phone }}</td>
-                </tr>
-            </table>
+            <ul class="list-unstyled">
+                <li><strong>{{ contact.position }}</strong></li>
+                <li>{{ contact.name }} {{ contact.surname }}</li>
+                <li>{{ contact.phone }}</li>
+                <li>{{ contact.email }}</li>
+                <li>{{ contact.description }}</li>
+            </ul>
         {% endfor %}
     {% endif %}
 

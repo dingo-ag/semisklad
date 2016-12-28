@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <div class="container" style="width: auto; padding-bottom: 20px">
+        <form method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+            <table class="table">
+                {{ form.as_table }}
+            </table>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <input type="submit" value="Register" class="btn btn-primary"/>
+        </form>
+
+    </div>
+{% endblock content %}

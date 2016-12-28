@@ -10,7 +10,7 @@ class SuppliersList(ListView):
 
 
 class SupplierDetail(DetailView):
-    template_name = 'suppliers/supplier_detail.html'
+    # template_name = 'suppliers/supplier_detail.html'
     model = Supplier
     context_object_name = 'supplier'
 
