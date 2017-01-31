@@ -1,25 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <table>
+    <table style="font-size: 18px; font-weight: bold">
         <tr>
-            <td>Name</td>
+            <td rowspan="5"><img src="{%  static supplier.logo %}"></td>
             <td>{{ supplier.name }}</td>
         </tr>
         <tr>
-            <td>Phone</td>
             <td>{{ supplier.phone }}</td>
         </tr>
         <tr>
-            <td>Email</td>
-            <td>{{ supplier.email }}</td>
+            <td><a href="mailto:{{ supplier.email }}">{{ supplier.email }}</a></td>
         </tr>
         <tr>
-            <td>Address</td>
             <td>{{ supplier.postcode }}, {{ supplier.address }}</td>
         </tr>
         <tr>
-            <td>Site</td>
             <td><a href={{ supplier.site }}>{{ supplier.site }}</a></td>
         </tr>
     </table>
@@ -30,7 +27,7 @@
                 <li><strong>{{ contact.position }}</strong></li>
                 <li>{{ contact.name }} {{ contact.surname }}</li>
                 <li>{{ contact.phone }}</li>
-                <li>{{ contact.email }}</li>
+                <li><a href="mailto:{{ contact.email }}"> {{ contact.email }} </a></li>
                 <li>{{ contact.description }}</li>
             </ul>
         {% endfor %}

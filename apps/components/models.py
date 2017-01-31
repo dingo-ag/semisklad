@@ -16,8 +16,8 @@ class Case(models.Model):
         )
 
     name = models.CharField(_('Name'), max_length=50, unique=True)
-    image = models.ImageField(_('Image'), upload_to='images')
-    documentation = models.FileField(_('Documentation'), upload_to='documentation', blank=True)
+    image = models.ImageField(_('Image'), upload_to='components/case/images', default='images/no_image.png')
+    documentation = models.FileField(_('Documentation'), upload_to='components/case/documentation', blank=True)
     mounting_type = models.IntegerField(
         verbose_name=_('Mounting type'),
         choices=CaseMountingType.choices,
@@ -73,13 +73,13 @@ class Component(models.Model):
         )
 
     component_type = models.IntegerField(_('Type'), choices=ComponentType.choices, default=ComponentType.OTHER)
-    name = models.CharField(_('Name'), max_length=30, unique=True)
-    value = models.CharField(_('Value'), max_length=20,default='')
+    name = models.CharField(_('Name'), max_length=30)
+    value = models.CharField(_('Value'), max_length=20, default='')
     case = models.ForeignKey('Case', verbose_name=_('Case'), blank=True, null=True, on_delete=models.CASCADE)
-    documentation = models.FileField(_('Documentation'), upload_to='documentation', blank=True)
+    documentation = models.FileField(_('Documentation'), upload_to='components/documentation', blank=True)
     short_characteristic = models.TextField(_('Short Characteristic'), blank=True)
     analogue = models.ManyToManyField('self', verbose_name=_('Analogue'), blank=True)
-    template = JSONField(_('Template'))
+    template = JSONField(_('Template'), blank=True, null=True)
 
     def __str__(self):
         return self.name

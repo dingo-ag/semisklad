@@ -1,11 +1,10 @@
+from django.db.models import Count, Q
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.views.generic import ListView
 
 from apps.components.models import Component
 from apps.components.forms import CreateComponentFrom
-
-
-# from django.contrib.auth.models import User
 
 
 def create_component(request):
@@ -19,12 +18,18 @@ def create_component(request):
         context['form'] = CreateComponentFrom()
         if request.GET.get('q') == '!':
             raise Http404('Wrong!')
-    return render(request, 'components/new_component.html', context)
+    return render(request, 'components/component_add.html', context)
 
 
-def active_components(request):
-    components = Component.objects.all()
-    context = {
-        'components': components
-    }
-    return render(request, 'components/components_list.html', context)
+class ComponentsList(ListView):
+    template_name = 'components/components_list.html'
+    context_object_name = 'components'
+    paginate_by = 3
+    paginate_orphans = 0
+    queryset = Component.objects.all()
+    #
+    # def get_queryset(self):
+    #     queryset = Component.objects.distinct('name', 'value', 'case')
+    #     for q in queryset:
+    #         q.__dict__['count'] = Component.objects.filter(name=q.name, value=q.value, case=q.case).count()
+    #     return queryset

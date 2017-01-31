@@ -1,7 +1,12 @@
+from datetime import timedelta, datetime
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+
 from django.db import models
+
 from django.utils.translation import ugettext_lazy as _
+
 from .managers import WorkerManager
 
 
@@ -38,3 +43,31 @@ class Phone(models.Model):
 
     def __str__(self):
         return self.number
+
+
+class Recovery(models.Model):
+    LIFETIME = timedelta(days=1,)
+
+    class Statuses:
+        ACTIVE = True
+        INACTIVE = False
+
+        choices = (
+            (INACTIVE, _('Inactive')),
+            (ACTIVE, _('Active'))
+        )
+
+    code = models.CharField(_('Code'), max_length=120, unique=True)
+    status = models.BooleanField(_('Status'), default=Statuses.INACTIVE, choices=Statuses.choices)
+    worker = models.ForeignKey(Worker, verbose_name=_('Worker'), on_delete=models.CASCADE)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
+
+    def is_active(self):
+        if self.status == self.Statuses.INACTIVE:
+            return False
+        elif datetime.now() > self.created + self.LIFETIME:
+            self.status = self.Statuses.INACTIVE
+            # self.save()
+            return False
+        else:
+            return True

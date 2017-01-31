@@ -113,18 +113,8 @@ TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_URL = '/media/'
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]

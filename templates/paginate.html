@@ -1,0 +1,44 @@
+<div style="text-align: center">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"><button type="button" class="btn btn-sm btn-primary" >PREV</button></a>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+            {% if  paginator.num_pages < 8 %}
+                {% if page == page_obj.number %}
+                    <span class="label label-default" style="font-size: 20px">{{ page }}</span>
+                {% else %}
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                {% endif %}
+
+            {% else %}
+                {% if page_obj.number > 5 and  page < page_obj.previous_page_number %}
+                    {% if page < 3 %}
+                        <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                    {% endif %}
+                {% elif page_obj.number > 5 and page == page_obj.previous_page_number  %}
+                    <span><button type="button" class="btn btn-sm btn-primary" >...</button></span>
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                {% elif page_obj.number > 1 and page <= page_obj.previous_page_number%}
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                {% endif %}
+
+                {% if page == page_obj.number %}
+                    <span class="label label-default" style="font-size: 20px">{{ page }}</span>
+                {% endif %}
+
+                {% if forloop.revcounter <= 3 and page == page_obj.next_page_number%}
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                {% elif  forloop.revcounter > 3 and page == page_obj.next_page_number%}
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                    <span><button type="button" class="btn btn-sm btn-primary" >...</button></span>
+                {% elif forloop.revcounter <= 2 and forloop.counter > page_obj.number%}
+                    <a href="?page={{ page }}"><button type="button" class="btn btn-sm btn-primary" >{{ page }}</button></a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"><button type="button" class="btn btn-sm btn-primary" >NEXT</button></a>
+        {% endif %}
+</div>

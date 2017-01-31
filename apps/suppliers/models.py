@@ -8,11 +8,12 @@ class Supplier(models.Model):
                               verbose_name=_('Phone number'),
                               blank=True,
                               null=True,
-                              on_delete=models.CASCADE)
+                              on_delete=models.SET_NULL)
     email = models.EmailField(_('email address'), unique=True, blank=True)
     postcode = models.CharField(_('Postcode'), max_length=10, blank=True)
     address = models.CharField(_('Address'), max_length=100, blank=True)
     site = models.URLField(_('Internet address'), blank=True, unique=True)
+    logo = models.ImageField(upload_to='suppliers/suppliers_logo', default=None, blank=True)
 
     def __str__(self):
         return self.name
@@ -26,7 +27,7 @@ class SupplierContact(models.Model):
                               verbose_name=_('Phone'),
                               blank=True,
                               null=True,
-                              on_delete=models.CASCADE)
+                              on_delete=models.SET_NULL)
     email = models.EmailField(_('Email address'), blank=True, unique=True, null=True)
     description = models.TextField(_('Additional information'), blank=True)
     employer = models.ForeignKey('Supplier',

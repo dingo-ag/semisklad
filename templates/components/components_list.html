@@ -2,25 +2,32 @@
 {% load static %}
 
 {% block content %}
-    <table class="table">
+    <table class="table" >
         <thead>
         <tr>
             <th></th>
-            <th>#</th>
             <th>Name</th>
-            <th>Case</th>
+            <th>Value</th>
             <th>Description</th>
+            <th>Doc</th>
+            <th>Quantity</th>
         </tr>
         </thead>
         {% for component in components %}
             <tr>
-                <td><img src="{% static component.case.image %}"></td>
-                {#            <td>{{component.case.image }}</td>#}
-                <td>{{ forloop.counter }}</td>
+                <td><img src="{% static component.case.image %}" style="max-width: 100px; max-height: 50px"></td>
                 <td>{{ component.name }}</td>
-                <td>{{ component.case }}</td>
+                <td>{{ component.value }}</td>
                 <td>{{ component.short_characteristic }}</td>
+                <td>{% if component.documentation %}
+                        <a href="{% static component.documentation %}">
+                        <img src="{%  static 'images/pdf.jpg' %}" style="max-width: 50px; max-height: 30px"></a>
+                    {% endif %}
+                </td>
+                <td>{{ component.count }}</td>
             </tr>
         {% endfor %}
     </table>
+    {# pagination #}
+    {% include 'paginate.html' %}
 {% endblock content %}

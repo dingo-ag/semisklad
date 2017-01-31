@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-{% block header %}
-{% endblock header %}
+{%  if user.is_authenticated %}
+    {% block header %}
+    {% endblock header %}
+{% endif %}
 
 {% block content %}
     <div class="container" style="padding-top: 20px">
@@ -28,8 +30,6 @@
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                        placeholder="Enter email" name="email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
-                </small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
@@ -37,12 +37,13 @@
                        name="password">
             </div>
             <input type="hidden" name="next" value="{{ next }}"/>
-            <input type="submit" value="Login" class="btn btn-primary"/>
+            <input type="submit" value="Login" class="btn btn-primary "/>
         </form>
         <table width="100%">
             <tr>
                 <td style="text-align: left"><a href="{% url 'registration' %}">Registration</a></td>
-                <td style="text-align: right"><a href="#">Change password</a></td>
+                <td style="text-align: center"><a href="{% url 'change_password' %}">Change password</a></td>
+                <td style="text-align: right"><a href="{% url 'forget_password' %}">Forget password?</a></td>
             </tr>
         </table>
 
@@ -50,4 +51,3 @@
         {#<p><a href="{% url '' %}">Lost password?</a></p>#}
     </div>
 {% endblock content %}
-
