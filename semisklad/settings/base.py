@@ -13,6 +13,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # For the local launch of the project, insert SECRET_KEY from http://www.miniwebtool.com/django-secret-key-generator/
 SECRET_KEY = secretkey(os.path.join(BASE_DIR, KEY_PATH))
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -31,7 +32,7 @@ INSTALLED_APPS = [
     'apps.components',
     'apps.suppliers',
     'apps.storage',
-    'apps.workers',
+    'apps.workers.apps.WorkersConfig',
     'apps.common'
 ]
 

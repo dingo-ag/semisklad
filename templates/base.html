@@ -89,11 +89,23 @@
 
 {# Error and success messges #}
 {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
+{#<ul class="messages">#}
+{#    {% for message in messages.error %}#}
+{#    <li class="alert alert-danger" role="alert">{{ message }}</li>#}
+{#    {% endfor %}#}
+{#    {% for message in messages.success %}#}
+{#    <li class="alert alert-success" role="alert">{{ message }}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+    <ul class="messages">
+        {% for message in messages %}
+            <div {% if message.tags == 'success' %} class="alert alert-success" role="alert"
+                {% elif  message.tags == 'error'%} class="alert alert-danger" role="alert"
+                {% endif %}>
+                "{{ message }}"
+            </div>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 <div class="container-fluid" style="padding-bottom: 80px;">

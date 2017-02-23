@@ -25,6 +25,4 @@ def check_code(code, user_id=None):
 
 
 if __name__ == '__main__':
-    print(create_code(user_id=2))
-    print(create_code(user_id=2))
     assert (check_code(create_code(user_id=2), 2))

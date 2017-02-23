@@ -2,11 +2,15 @@ from datetime import timedelta, datetime
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.mail import send_mail
 
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django.utils.translation import ugettext_lazy as _
 
+from apps.workers.signals import worker_post_save
 from .managers import WorkerManager
 
 
@@ -14,7 +18,7 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('Email address'), unique=True)
     name = models.CharField(_('First Name'), max_length=40)
     surname = models.CharField(_('Last Name'), max_length=40, blank=True)
-    phone = models.ForeignKey('Phone', verbose_name=_('Phone'), blank=True, null=True, on_delete=models.CASCADE)
+    phone = models.OneToOneField('Phone', verbose_name=_('Phone'), blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(_('Additional information'), blank=True)
     is_admin = models.BooleanField(_('Administrator'), default=False)
     is_active = models.BooleanField(_('User is active'), default=True)
@@ -37,6 +41,10 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.name.capitalize()
 
+    def delete(self, using=None, keep_parents=False):
+        self.phone.delete()
+        return super().delete()
+
 
 class Phone(models.Model):
     number = models.CharField(max_length=25, verbose_name=_('Phone number'), unique=True, null=True)
@@ -46,7 +54,7 @@ class Phone(models.Model):
 
 
 class Recovery(models.Model):
-    LIFETIME = timedelta(days=1,)
+    LIFETIME = timedelta(days=1, hours=0, minutes=0)
 
     class Statuses:
         ACTIVE = True
@@ -65,9 +73,9 @@ class Recovery(models.Model):
     def is_active(self):
         if self.status == self.Statuses.INACTIVE:
             return False
-        elif datetime.now() > self.created + self.LIFETIME:
+        elif datetime.utcnow() - self.created > self.LIFETIME:
             self.status = self.Statuses.INACTIVE
-            # self.save()
+            self.save()
             return False
         else:
             return True
